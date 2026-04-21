@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <script>
-  var i = setInterval(function() {
-    if (window.opener) {
-      window.opener.postMessage(window.location.href, '*');
-      clearInterval(i);
-      window.close();
-    }
-  }, 100);
+  var code = new URLSearchParams(window.location.search).get('code');
+  if (code) {
+    localStorage.setItem('corpus_auth_code', code);
+    document.body.innerText = 'Signed in. You can close this window.';
+    setTimeout(function(){ window.close(); }, 1000);
+  }
 </script>
 <body>Signing in...</body>
 </html>
