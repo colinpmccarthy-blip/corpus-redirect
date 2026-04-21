@@ -2,10 +2,13 @@
 <html>
 <script>
   var code = new URLSearchParams(window.location.search).get('code');
-  if (code) {
-    localStorage.setItem('corpus_auth_code', code);
-    document.body.innerText = 'Signed in. You can close this window.';
-    setTimeout(function(){ window.close(); }, 1000);
+  var error = new URLSearchParams(window.location.search).get('error');
+  if (window.opener) {
+    window.opener.postMessage(
+      { code: code, error: error },
+      '*'
+    );
+    setTimeout(function(){ window.close(); }, 500);
   }
 </script>
 <body>Signing in...</body>
